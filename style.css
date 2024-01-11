@@ -1,0 +1,11 @@
+.container-fluid {
+    border: 1px solid black;
+}
+
+#resultsBox {
+    border: 1px solid black;
+}
+
+header {
+    height:80px;
+}
