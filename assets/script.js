@@ -106,12 +106,12 @@ function getData(qData) {
 
   function updatePage(dataArr) {
     for (let i = 0; i < dataArr.length; i++) {
-        $(`<div class="card weatherCard" style="width: 10rem">
+        $(`<div class="card weatherCard" style="width: 14rem">
             <div class="card-body">
                 <h4 class="card-title">
                     ` + dataArr[i].date + `
                 </h4>
-                <p class="text-center" style="font-size: 1.5rem">
+                <p class="text-center" style="font-size: 2rem">
                     ` + dataArr[i].icon + `
                 </p>
                 <p>Temp: 
