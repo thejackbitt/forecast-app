@@ -9,3 +9,16 @@
 header {
     height:80px;
 }
+
+label {
+    font-size: 1.75rem;
+    font-weight: 600;
+}
+
+textarea {
+    resize: none;
+}
+
+h3 {
+    margin-top: 0.2rem;
+} 
