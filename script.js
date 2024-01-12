@@ -1,3 +1,14 @@
+// Init Variables
+let cityQuery = "Blaine, MN";
+let finalResults;
+let currentLat;
+let currentLon;
+const calendarBox = $("#calendarBox");
+const resultsBox = $("#resultsBox");
+const cityName = $("#cityName");
+const searchContainer = $("#searchContainer");
+const mainContent = $("#mainContent");
+
 // Function Declaration
 function getLatLon(q) {
   fetch(
@@ -58,7 +69,8 @@ function getData(qData) {
         humd: Math.round(((((humdSum / dayLength) - 273.15) * 1.8) + 32)* 10) / 10 + "°",
       });
     }
-    console.log(resultsObject);
+    finalResults = resultsObject;
+    updatePage(finalResults);
   }
 
   function getIcon(qCode) {
@@ -91,16 +103,44 @@ function getData(qData) {
     return currentIcon;
   }
 
+  function updatePage(dataArr) {
+    for (let i = 0; i < dataArr.length; i++) {
+        $(`<div class="card" style="width: 10rem">
+            <div class="card-body">
+                <h4 class="card-title">
+                    ` + dataArr[i].date + `
+                </h4>
+                <p class="text-center" style="font-size: 1.5rem">
+                    ` + dataArr[i].icon + `
+                </p>
+                <p>Temp: 
+                ` + dataArr[i].temp + `F
+                <br>
+                Wind:
+                ` + dataArr[i].wind + `
+                <br>
+                Humidity:
+                ` + dataArr[i].humd + `
+                </p>
+            </div>
+            </div>
+        `).appendTo(calendarBox);
+    }
+    $(`<h2>
+    ` + cityQuery + ` (` + dayjs().format('MM/DD/YYYY') + `)` + dataArr[0].icon + `   
+    </h2>
+    <p> 
+    Temp: ` + dataArr[0].temp + `
+    <br>
+    Wind: ` + dataArr[0].wind + `
+    <br>
+    Humidity: ` + dataArr[0].humd + `
+    </p>
+    `).appendTo(resultsBox);
+  };
+
 $(document).ready(function () {
-  // Variable Declaration
-  const calendarBox = $("#calendarBox");
-  const resultsBox = $("#resultsBox");
-  const cityName = $("#cityName");
-  const searchContainer = $("#searchContainer");
-  const mainContent = $("#mainContent");
-  let cityQuery = "Blaine, MN";
-  let currentLat;
-  let currentLon;
 
   getLatLon(cityQuery);
+
 });

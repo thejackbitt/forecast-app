@@ -22,3 +22,16 @@ textarea {
 h3 {
     margin-top: 0.2rem;
 } 
+
+.card {
+    margin: 10px;
+}
+
+p, span, button {
+    font-size: 1.2rem;
+}
+
+#buttonContainer button{
+    margin: 10px;
+    width: 90%;
+}
