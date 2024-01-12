@@ -5,6 +5,7 @@ let currentLat;
 let currentLon;
 const calendarBox = $("#calendarBox");
 const resultsBox = $("#resultsBox");
+const buttonContainer = $("#buttonContainer")
 const cityName = $("#cityName");
 const searchContainer = $("#searchContainer");
 const mainContent = $("#mainContent");
@@ -105,7 +106,7 @@ function getData(qData) {
 
   function updatePage(dataArr) {
     for (let i = 0; i < dataArr.length; i++) {
-        $(`<div class="card" style="width: 10rem">
+        $(`<div class="card weatherCard" style="width: 10rem">
             <div class="card-body">
                 <h4 class="card-title">
                     ` + dataArr[i].date + `
@@ -126,21 +127,83 @@ function getData(qData) {
             </div>
         `).appendTo(calendarBox);
     }
-    $(`<h2>
-    ` + cityQuery + ` (` + dayjs().format('MM/DD/YYYY') + `)` + dataArr[0].icon + `   
-    </h2>
-    <p> 
-    Temp: ` + dataArr[0].temp + `
-    <br>
-    Wind: ` + dataArr[0].wind + `
-    <br>
-    Humidity: ` + dataArr[0].humd + `
-    </p>
-    `).appendTo(resultsBox);
+    $(`<div class="resultsBar">
+        <h2>
+        ` + cityQuery + ` (` + dayjs().format('MM/DD/YYYY') + `)` + dataArr[0].icon + `   
+        </h2>
+        <p> 
+        Temp: ` + dataArr[0].temp + `
+        <br>
+        Wind: ` + dataArr[0].wind + `
+        <br>
+        Humidity: ` + dataArr[0].humd + `
+        </p>
+    </div>`).appendTo(resultsBox);
   };
+
+  function overwriteQuery() {
+    $('.weatherCard').remove();
+    $('.resultsBar').remove();
+  };
+
+  function initLocalStorage() {
+    if (localStorage.getItem("lastQuery") !== null) {
+        cityQuery = localStorage.getItem("lastQuery");
+        cityQuery = cityQuery.replace(/^"|"$/g, '');
+    } else {
+        return;
+    }
+  }
 
 $(document).ready(function () {
 
+    initLocalStorage();
   getLatLon(cityQuery);
+
+  cityName.on('keypress', function(e) {
+    if (e.which === 13) {
+        e.preventDefault();
+        cityQuery = $(this).val().trim();
+        overwriteQuery();
+        getLatLon(cityQuery);
+        localStorage.setItem("lastQuery", JSON.stringify(cityQuery))
+    }
+  })
+
+  buttonContainer.click(function(e) {
+    if ($(e.target).is($("#atlantaBtn"))) {
+        cityQuery = "Atlanta, GA";
+        overwriteQuery();
+        getLatLon(cityQuery);
+    } else if ($(e.target).is($("#denverBtn"))) {
+        cityQuery = "Denver, CO";
+        overwriteQuery();
+        getLatLon(cityQuery);
+    } else if ($(e.target).is($("#seattleBtn"))) {
+        cityQuery = "Seattle, WA";
+        overwriteQuery();
+        getLatLon(cityQuery);
+    } else if ($(e.target).is($("#sanFranBtn"))) {
+        cityQuery = "San Francisco, CA";
+        overwriteQuery();
+        getLatLon(cityQuery);
+    } else if ($(e.target).is($("#orlandoBtn"))) {
+        cityQuery = "Orlando, FL";
+        overwriteQuery();
+        getLatLon(cityQuery);
+    } else if ($(e.target).is($("#nycBtn"))) {
+        cityQuery = "New York City, NY";
+        overwriteQuery();
+        getLatLon(cityQuery);
+    } else if ($(e.target).is($("#chicagoBtn"))) {
+        cityQuery = "Chicago, IL";
+        overwriteQuery();
+        getLatLon(cityQuery);
+    } else if ($(e.target).is($("#austinBtn"))) {
+        cityQuery = "Austin, TX";
+        overwriteQuery();
+        getLatLon(cityQuery);
+    }
+  })
 
 });
