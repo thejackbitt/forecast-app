@@ -13,7 +13,7 @@ const mainContent = $("#mainContent");
 // Function Declaration
 function getLatLon(q) {
   fetch(
-    "http://api.openweathermap.org/geo/1.0/direct?q=" +
+    "https://api.openweathermap.org/geo/1.0/direct?q=" +
       q +
       ",US&appid=9ff246accb301f3b2b751de4322c6baf"
   )
@@ -32,7 +32,7 @@ function getLatLon(q) {
 
 function getForecast(qLat, qLon) {
   fetch(
-    "http://api.openweathermap.org/data/2.5/forecast?lat=" +
+    "https://api.openweathermap.org/data/2.5/forecast?lat=" +
       qLat +
       "&lon=" +
       qLon +
